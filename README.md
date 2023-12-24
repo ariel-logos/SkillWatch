@@ -27,9 +27,8 @@ Go over the Releases page, download the latest version and unpack it in the add-
 ```/skillwatch``` Shows/hides the config UI.
 
 #### Filters tab
-This tab (Fig.1) allow you to select which skill you want to have the "blinking" alert effect so that you can properly react only to those important for you.
-\nYou can obviously select multiple skills on which to apply the blinking effect.
-
+This tab (Fig.1) allow you to select which skill you want to have the "blinking" alert effect so that you can properly react only to those important for you.\
+You can obviously select multiple skills on which to apply the blinking effect.
 Everything set here is saved in the preferences.
 <ol>
   <li><b>Search:</b> textbox that you can use to quickly look up mobs' skills in the Skills list (Fig.2).</li>
