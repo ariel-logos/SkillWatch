@@ -11,5 +11,5 @@ This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy m
 ## How does it work?
 In short, it's a combination of parsing the chat box looking for a message, matching it with Entity informations provided by Ashita hook and drawing some visual feedback overlay.
 
-<video src="https://private-user-images.githubusercontent.com/78350872/292667738-4dd8e67a-a4f3-4b2f-8a03-db14c797d021.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:50px; min-height:20px;">
+<video class="myvideoclass" src="https://private-user-images.githubusercontent.com/78350872/292667738-4dd8e67a-a4f3-4b2f-8a03-db14c797d021.mp4">
 </video>
