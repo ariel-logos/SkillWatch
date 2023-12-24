@@ -19,8 +19,15 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
 
 ### Functionalities
+#### Commands
+```/addon load skillwatch``` Loads the add-on in Ashita.
+```/addon unload skillwatch``` Unloads the add-on from Ashita.
+```/skillwatch``` Shows/hides the config UI.
+
 #### Filters tab
 This tab (Fig.1) allow you to select which skill you want to have the "blinking" alert effect so that you can properly react only to those important for you.
+You can obviously select multiple skills on which to apply the blinking effect.
+Everything set here is saved in the preferences.
 <ol>
   <li><b>Search:</b> textbox that you can use to quickly look up mobs' skills in the Skills list (Fig.2).</li>
   <li><b>Skills:</b> list of mobs' skills, select the one you want to filter to add the blinking effect.</li>
