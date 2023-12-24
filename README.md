@@ -12,5 +12,5 @@ This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy m
 In short, it's a combination of parsing the chat box looking for a message, matching it with Entity informations provided by Ashita hook and drawing some visual feedback overlay.
 
 <p align="center">
-<a href="https://gyazo.com/b9fa596e17e803e98d39e58b84ee482c"><img src="https://i.gyazo.com/b9fa596e17e803e98d39e58b84ee482c.gif" alt="SkillWatch Overlay"/></a>  
+<a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c.gif" alt="SkillWatch Overlay"/></a>  
 </p>
