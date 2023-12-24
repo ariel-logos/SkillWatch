@@ -30,8 +30,8 @@ This tab allow you to select which skill you want to have the "blinking" alert e
   <li><b>Custom Filter:</b> textbox to quickly add custom text to match against the skills used by mobs (e.g. Writing "Toss" and enabling the checkbox will add the blinking effect on all the skills containing the word Toss). This text is case sensitive!!!</li>
 </ol>
 
-![1](https://github.com/ariel-logos/SkillWatch/assets/78350872/3d8a14e9-b8dd-4227-99ba-6369b511ba29) | ![2](https://github.com/ariel-logos/SkillWatch/assets/78350872/19ce8c78-9851-4424-8e82-8aea4f1c43cd)|![3](https://github.com/ariel-logos/SkillWatch/assets/78350872/31aee711-072d-400a-a867-e8180ccfdd5a)
-:-------------------------:|:-------------------------:|:-------------------------
+![1](https://github.com/ariel-logos/SkillWatch/assets/78350872/3d8a14e9-b8dd-4227-99ba-6369b511ba29)|![2](https://github.com/ariel-logos/SkillWatch/assets/78350872/19ce8c78-9851-4424-8e82-8aea4f1c43cd)|![3](https://github.com/ariel-logos/SkillWatch/assets/78350872/31aee711-072d-400a-a867-e8180ccfdd5a)
+:-------------------------|-------------------------|-------------------------
 Solarized dark             |  Solarized Ocean          |
 
 
