@@ -18,11 +18,7 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 
 
 
-
-https://github.com/ariel-logos/SkillWatch/assets/78350872/11f90a32-35d3-4699-be86-9083fc455ffd
-
-|
-
+![Overlay1](https://i.imgur.com/IhdsmSH.gif)  | ![Overlay2](https://i.imgur.com/rbeOaoS.gif)
 ------------------------------------
 Normal ability | Filtered ability
 
