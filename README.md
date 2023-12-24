@@ -20,6 +20,12 @@ Go over the Releases page, download the latest version and unpack it in the add-
 
 ### Functionalities
 #### Filters tab
+This tab allow you to select which skill you want to have the "blinking" alert effect so that you can properly react only to those important for you.
 <ol>
-  <li><b>Search:</b>textbox that you can use to quickly look up mobs' skills in the Skills list.</li>
+  <li><b>Search:</b> textbox that you can use to quickly look up mobs' skills in the Skills list.</li>
+  <li><b>Skills:</b> list of mobs' skills, select the one you want to filter to add the blinking effect.</li>
+  <li><b>Enable:</b> after selecting a skill you can use this toggle checkbox to enable or disable the blinking effect for that skill.</li>
+  <li><b>Show Enabled only:</b> toggle checkbox to quickly show in the Skills list only the skill for which the blinking effect is enabled.</li>
+  <li><b>Disable All:</b> button to quickly remove the check mark from the Enabled checkbox from ALL the skills effectively resetting the list.</li>
+  <li><b>Custom Filter:</b> textbox to quickly add custom text to match against the skills used by mobs (e.g. Wrting "Toss" and enabling the checkbox will add the blinking effect on all the skills containing the word Toss). This text is case sensitive!!!</li>
 </ol>
