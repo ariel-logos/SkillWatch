@@ -28,8 +28,7 @@ Go over the Releases page, download the latest version and unpack it in the add-
 
 #### Filters tab
 This tab (Fig.1) allow you to select which skill you want to have the "blinking" alert effect so that you can properly react only to those important for you.
-
-You can obviously select multiple skills on which to apply the blinking effect.
+\nYou can obviously select multiple skills on which to apply the blinking effect.
 
 Everything set here is saved in the preferences.
 <ol>
