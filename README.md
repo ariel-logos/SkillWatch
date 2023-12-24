@@ -15,6 +15,12 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 <a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c.gif" alt="SkillWatch Overlay"/></a>  
 </p><br></br>
 
+
+
+https://github.com/ariel-logos/SkillWatch/assets/78350872/f26817f7-4d03-425a-8331-d8808d11bc4c | https://github.com/ariel-logos/SkillWatch/assets/78350872/6aa4bcae-3e97-4f40-a2f9-4659ea538c6c
+------------------------------------
+Normal ability | Filtered ability
+
 ### Installation
 Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
 <br></br>
