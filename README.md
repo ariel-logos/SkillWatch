@@ -14,3 +14,6 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 <p align="center">
 <a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c.gif" alt="SkillWatch Overlay"/></a>  
 </p>
+
+### Installation
+Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder.
