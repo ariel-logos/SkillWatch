@@ -19,9 +19,9 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 <h3>Installation</h3>
 Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
 <br></br>
-### Functionalities
+<h4>Functionalities</h4>
 
-#### Commands
+<h4>Commands</h4>
 ```/addon load skillwatch``` Loads the add-on in Ashita.
 
 ```/addon unload skillwatch``` Unloads the add-on from Ashita.
