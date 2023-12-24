@@ -12,7 +12,7 @@ This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy m
 In short, it's a combination of parsing the chat box looking for a message, matching it with Entity informations provided by Ashita hook and drawing some visual feedback overlay.
 
 <style>
-  .d-block {
+  d-block {
       max-width: 200px;
   }
 </style>
