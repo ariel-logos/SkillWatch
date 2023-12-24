@@ -13,3 +13,5 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 
 
 ![SkillWatch Overlay](https://github.com/ariel-logos/SkillWatch/assets/78350872/b99bbe1f-2d2e-44c0-85b7-09b8fbe461d3)
+
+[![SkillWatch Overlay](https://i.gyazo.com/b9fa596e17e803e98d39e58b84ee482c.gif)](https://gyazo.com/b9fa596e17e803e98d39e58b84ee482c)
