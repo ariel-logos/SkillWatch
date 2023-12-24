@@ -13,3 +13,5 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 <a href="https://gyazo.com/b9fa596e17e803e98d39e58b84ee482c"><img src="https://i.gyazo.com/b9fa596e17e803e98d39e58b84ee482c.gif" alt="Image from Gyazo" width="472.5000000000004"/></a>
 
 [![SkillWatch Overlay](https://i.gyazo.com/b9fa596e17e803e98d39e58b84ee482c.gif)](https://gyazo.com/b9fa596e17e803e98d39e58b84ee482c)
+
+<a href="https://gyazo.com/b9fa596e17e803e98d39e58b84ee482c"><video width="472.5000000000004" autoplay muted loop playsinline controls><source src="https://i.gyazo.com/b9fa596e17e803e98d39e58b84ee482c.mp4" type="video/mp4"/></video></a>
