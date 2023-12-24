@@ -27,7 +27,6 @@ Go over the Releases page, download the latest version and unpack it in the add-
 ```/addon unload skillwatch``` Unloads the add-on from Ashita.
 
 ```/skillwatch``` Shows/hides the config UI.
-
 <br></br>
 #### Filters tab
 This tab allows you to select which skill you want to have the "blinking" alert effect to better highlight those relevant for you.\
