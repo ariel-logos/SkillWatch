@@ -30,4 +30,8 @@ This tab allow you to select which skill you want to have the "blinking" alert e
   <li><b>Custom Filter:</b> textbox to quickly add custom text to match against the skills used by mobs (e.g. Writing "Toss" and enabling the checkbox will add the blinking effect on all the skills containing the word Toss). This text is case sensitive!!!</li>
 </ol>
 
-<span aligh="center"></span>
+<span aligh="center">
+  <img src="https://i.gyazo.com/3c6ac95e0b390138775c4ee70d748da1.png" alt="FiltersTab1"/>
+</span>
+
+
