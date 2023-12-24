@@ -2,7 +2,7 @@
 
 ### What is it?
 Skillwatch is an add-on for FFXI's third-party loader and hook Ashita (https://www.ashitaxi.com/).
-Very simply, the purpose of this add-on is to have a clearer way to indentify the moment when enemy mobs "ready" a skill.
+Very simply, the purpose of this add-on is to have a clearer way to identify the moment when enemy mobs "ready" a skill.
 This could be useful in a variety of situations, for example, when people are playing with relevant ping issues or the time window to react to such event is in general too short.
 
 ### What is not?
@@ -27,5 +27,7 @@ This tab allow you to select which skill you want to have the "blinking" alert e
   <li><b>Enable:</b> after selecting a skill you can use this toggle checkbox to enable or disable the blinking effect for that skill.</li>
   <li><b>Show Enabled only:</b> toggle checkbox to quickly show in the Skills list only the skill for which the blinking effect is enabled.</li>
   <li><b>Disable All:</b> button to quickly remove the check mark from the Enabled checkbox from ALL the skills effectively resetting the list.</li>
-  <li><b>Custom Filter:</b> textbox to quickly add custom text to match against the skills used by mobs (e.g. Wrting "Toss" and enabling the checkbox will add the blinking effect on all the skills containing the word Toss). This text is case sensitive!!!</li>
+  <li><b>Custom Filter:</b> textbox to quickly add custom text to match against the skills used by mobs (e.g. Writing "Toss" and enabling the checkbox will add the blinking effect on all the skills containing the word Toss). This text is case sensitive!!!</li>
 </ol>
+
+<span aligh="center"></span>
