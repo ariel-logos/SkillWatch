@@ -20,7 +20,7 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 
 ![Overlay1](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay1fixed.gif)  | ![Overlay2](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay2.gif)
 :------------------|------------------
-Normal ability | Filtered ability
+Normal ability overlay | Filtered ability overlay (blinking alert effect)
 
 ### Installation
 Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
