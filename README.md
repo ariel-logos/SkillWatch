@@ -16,7 +16,7 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 </p>
 <br></br>
 
-### Installation
+<h3>Installation</h3>
 Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
 <br></br>
 ### Functionalities
