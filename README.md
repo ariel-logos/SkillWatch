@@ -27,7 +27,7 @@ Go over the Releases page, download the latest version and unpack it in the add-
 
 ```/skillwatch``` Shows/hides the config UI.
 
-
+<br>
 #### Filters tab
 This tab allows you to select which skill you want to have the "blinking" alert effect to better highlight those relevant for you.\
 You can obviously select multiple skills on which to apply the blinking effect.\
@@ -45,7 +45,7 @@ Everything set here is saved in the preferences.
 :-------------------------|-------------------------|-------------------------
 Fig. 1          |  Fig. 2           | Fig. 3 
 
-
+<br>
 #### Settings tab
 In this tab you can adjust several add-on settings, in particular:
 <ol>
