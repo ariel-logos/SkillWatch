@@ -16,4 +16,10 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 </p>
 
 ### Installation
-Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder.
+Go over the Releases page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
+
+### Functionalities
+#### Filters tab
+<ol>
+  <li><b>Search:</b>textbox that you can use to quickly look up mobs' skills in the Skills list.</li>
+</ol>
