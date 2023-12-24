@@ -18,7 +18,7 @@ In short, it's a combination of parsing the chat box looking for a message, matc
 
 
 
-![Overlay1](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay1.gif)  | ![Overlay2](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay2.gif)
+![Overlay1](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay1fixed.gif)  | ![Overlay2](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay2.gif)
 :------------------|------------------
 Normal ability | Filtered ability
 
