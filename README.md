@@ -31,9 +31,7 @@ This tab allow you to select which skill you want to have the "blinking" alert e
 </ol>
 
 <span align="center">
-  <img src="https://i.gyazo.com/3c6ac95e0b390138775c4ee70d748da1.png" alt="FiltersTab1" max-height="300"/>
+  <img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/05f706d8-e96e-4feb-a4ed-ad32bc763c85.png" alt="FiltersTab1" max-height="300"/>
   <img src="https://i.gyazo.com/e913cc1beee26aa66840d6507c59b350.png" alt="FiltersTab2"/>
   <img src="https://i.gyazo.com/7e600df857d0c2df3e010002ffd6aa2c.png" alt="FiltersTab3"/>
 </span>
-
-
