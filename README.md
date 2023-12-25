@@ -18,7 +18,7 @@ It is also possible to just display the filtered skills (very useful to target s
 The overlay has different visual options such as size adjustment, repositioning, blinking color, etc.
 ![Overlay1](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay1fixed.gif)  | ![Overlay2](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay2.gif)
 :------------------|------------------
-Normal ability overlay | Filtered ability overlay (blinking alert effect)
+Normal skill overlay | Filtered skill overlay (blinking alert effect)
 
 ### Installation
 Go over the <a href="https://github.com/ariel-logos/SkillWatch/releases" target="_blank">Releases</a> page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
