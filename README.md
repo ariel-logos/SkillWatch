@@ -6,15 +6,16 @@ Very simply, the purpose of this add-on is to have a clearer way to identify the
 This could be useful in a variety of situations, for example, when people are playing with relevant ping issues or the time window to react to such event is in general too short.
 <br></br>
 ### What is not?
-This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy mobs readying their skills with the same timing the typical "X readies Y." message would appear in the chat box.
+This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy mobs readying their skills with the same timing the typical "X readies Y" message would appear in the chat box.
 <br></br>
 ### How does it work?
 In short, it's a combination of parsing the chat box looking for a message, matching it with Entity informations provided by Ashita hook and drawing some visual feedback overlay.
-<!--
-<p align="center">
-<a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/87152b44-fa5b-4aa3-8e86-092cfe09fa2c.gif" alt="SkillWatch Overlay"/></a>  
-</p><br></br>
--->
+<br><br>
+#### Main features
+By default, the add-on displays on an overlay (text +  background box + time bar) ALL the incoming skills from enemy mobs with the exception of those without charging time (e.g. Jump).\
+The overlay can be configured in different ways (see details below), for example, by filtering certain skills to add a blinking alert effect to the overlay when they are incoming.\
+It is also possible to just display the filtered skills (very useful to target specific skill to which you'd like to react with a stun!).\
+The overlay has different visual options such as size adjustment, repositioning, blinking color, etc.
 ![Overlay1](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay1fixed.gif)  | ![Overlay2](https://github.com/ariel-logos/ElfyLab/blob/master/img/overlay2.gif)
 :------------------|------------------
 Normal ability overlay | Filtered ability overlay (blinking alert effect)
