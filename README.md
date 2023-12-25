@@ -64,6 +64,5 @@ In this tab you can adjust several add-on settings, in particular:
 
 
 <p align="center">
-<a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/726d83c8-ba8d-4cbe-89cb-9050527a8255"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/726d83c8-ba8d-4cbe-89cb-9050527a8255.png" alt="SkillWatch Overlay"/></a> |
--------|
+<a href="https://github.com/ariel-logos/SkillWatch/assets/78350872/726d83c8-ba8d-4cbe-89cb-9050527a8255"><img src="https://github.com/ariel-logos/SkillWatch/assets/78350872/726d83c8-ba8d-4cbe-89cb-9050527a8255.png" alt="SkillWatch Overlay"/></a>
 </p>
