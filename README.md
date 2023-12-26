@@ -23,7 +23,16 @@ Normal skill overlay | Filtered skill overlay (blinking alert effect)
 ### Installation
 Go over the <a href="https://github.com/ariel-logos/SkillWatch/releases" target="_blank">Releases</a> page, download the latest version and unpack it in the add-on folder in your Ashita installation folder. You should now have among the other add-on folders the "skillwatch" one!
 <br></br>
+### Compatibility Issues
+As far as my testing was able to discover. This mod has severe compatibility issues with SimpleLog add-on (https://github.com/Spike2D/SimpleLog).\
+Simplelog, for reason unknown to me, was coded to just completely block and discard incoming messages in the chatbox of the same type that this add-on need to work properly.\
+A workaround, besides not using Simplelog, is to edit the ${\textsf{\color{lightgreen}lib/constants.lua}}$ inside simplelog folder and move the index ${\textsf{\color{lightgreen}43}}$ from ${\textsf{\color{lightgreen}block\\_modes}}$ table to ${\textsf{\color{lightgreen}non\\_blocked\\_messages}}$ one.\
+The two tables should look like this:
 
+```block_modes = T{20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,40,41,42,56,57,59,60,61,...```  ${\textsf{\color{lightgreen}43}}$ removed from this list
+
+```non_block_messages = T{1,2,7,14,15,24,25,26,30,31,32,33,43,44,63,67,69,70,...```  ${\textsf{\color{lightgreen}43}}$ now part of this list
+<br></br>
 ### Functionalities
 
 #### Commands
