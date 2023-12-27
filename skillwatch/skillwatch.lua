@@ -1,6 +1,6 @@
 addon.name      = 'skillwatch';
 addon.author    = 'Arielfy';
-addon.version   = '0.2';
+addon.version   = '0.2.1';
 addon.desc      = 'Addon to display abilities being readied by mobs';
 addon.link      = '';
 
@@ -78,7 +78,7 @@ colorTime = 0,
 settings,
 filterSettings,
 settingsModeEnabled = true,
-debugModeEnabled = false,
+debugModeEnabled = true,
 blinkDir = 1,
 lastClock = 0,
 isSettingsOpen = T{false},
@@ -144,7 +144,12 @@ ashita.events.register('d3d_present', 'present_cb', function()
 		overlay.targetEntity = GetEntity(targetIndex);
 	end
     
-	--SETTINGS WINDOW  
+	if (overlay.font.font_height ~= overlay.settings.font.font_height) then
+		overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
+		overlay.font.padding = overlay.font.font_height/4;
+	end
+	
+	--CONFIG WINDOW  
 	if (overlay.isSettingsOpen[1]) then
 		imgui.SetNextWindowSize({ 350, 480, });
 		imgui.SetNextWindowSizeConstraints({ 350, 480, }, { FLT_MAX, FLT_MAX, });
@@ -230,10 +235,10 @@ ashita.events.register('d3d_present', 'present_cb', function()
 				local S = {tonumber(overlay.settings.size[1])};
 				if (imgui.SliderFloat(' ', S, 0.1, 3, '%0.1f')) then
 					overlay.settings.size = S;
-					save_settings();
 					overlay.settings.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
 					overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
-					overlay.font.padding = overlay.font.font_height/2;
+					overlay.font.padding = overlay.font.font_height/4;
+					save_settings();
 				end
 				imgui.PopStyleVar(1);
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'BG Transparency');
@@ -302,19 +307,20 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			end
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.readiesText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.usesText);
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.debugText);
+			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.debugText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilityText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.isAbilityUsed));
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.timer));
-			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.settings.customFilter[1]);
+			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.settings.size[1]));
+			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, (tostring(overlay.settings.font.font_height)..' '..tostring(overlay.font.font_height)));
 			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.background.position_x));
 			overlay.font.bold = true;
 			overlay.font.font_family = 'Franklin Gothic';
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
+			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
 			
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.test));
+			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.test));
 			
-			if(overlay.targetEntity ~= nil) then imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.band(overlay.targetEntity.SpawnFlags, 0x10))); end
+			--if(overlay.targetEntity ~= nil) then imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.band(overlay.targetEntity.SpawnFlags, 0x10))); end
 			overlay.enabledAbilities:each(function(v,k)
 				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilities[tonumber(v[1])][1]);
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 },v[1]);
@@ -367,15 +373,15 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			end
 			overlay.lastClock = os.clock()*overlay.settings.blinkingSpeed[1]%1;
 			if (overlay.blinkDir == 1) then
-				time2color = bit.lshift(bit.tobit(time2colorR),16) + bit.lshift(bit.tobit(time2colorG),8) + bit.tobit(time2colorB)+	0x88000000;
+				time2color = bit.lshift(bit.tobit(time2colorR),16) + bit.lshift(bit.tobit(time2colorG),8) + bit.tobit(time2colorB)+	bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);;
 			else
 				time2color = bit.lshift(bit.tobit(math.floor(tonumber(overlay.settings.blinkR[1]))-time2colorR),16) +
 								bit.lshift(bit.tobit(math.floor(tonumber(overlay.settings.blinkG[1]))-time2colorG),8) +
 								bit.tobit(math.floor(math.floor(tonumber(overlay.settings.blinkB[1]))-time2colorB))+
-								bit.lshift(bit.tobit(overlay.settings.transparency[1]*255),24);
+								bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);
 			end
 		else
-			time2color = bit.lshift(bit.tobit(overlay.settings.transparency[1]*255),24);
+			time2color = bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);
 		end
 		
 		--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.tohex(time2color)));
@@ -483,6 +489,8 @@ ashita.events.register('load', 'load_cb', function ()
 	overlay.settings = settings.load(default_settings, 'general_settings');
 	overlay.filterSettings = settings.load(default_filterSettings, 'filter_settings');
     overlay.font = fonts.new(overlay.settings.font);
+	overlay.settings.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
+	overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
 	overlay.font.padding = overlay.font.font_height/4;
 	getAbilities();
 	overlay.skillBar = prims.new(skillBarInit);
