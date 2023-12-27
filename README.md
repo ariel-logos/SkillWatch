@@ -62,7 +62,7 @@ Fig. 1          |  Fig. 2           | Fig. 3
 In this tab you can adjust several add-on settings, in particular:
 <ol>
   <li><b>Size:</b> sets the size of the overlay.</li>
-  <li><b>BG Transparency:</b> sets the alpha channel of the background box.</li>
+  <li><b>BG Transparency:</b> sets the transparency of the background box.</li>
   <li><b>Blinking RGB:</b> using the 3 sliders R,G,B below, sets the color of the blinking effect.</li>
   <li><b>Blinking Speed:</b> sets the rate at which the text background to notify incoming skills set in the Filters tab.</li>
   <li><b>Only trigger on filtered skills:</b> the overlay will only appear when one of the selected skills in the Filters tab is being used by the enemy mob.</li>
