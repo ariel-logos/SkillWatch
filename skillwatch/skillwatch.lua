@@ -16,28 +16,22 @@ local default_filterSettings = T{abilityFilters,};
 local default_settings = T{
     font = T{
         visible = true,
-        font_family = 'Consolas',
+        font_family = 'Franklin Gothic',
 		bold = true,
         font_height = 12,
 		draw_flags = 0x10,
         color = 0xFFFFFFFF,
         position_x = 100,
         position_y = 100,
-		padding    = 0,
+		padding    = 3,
 		color_outline = 0xFF000000,
         background = T{
             visible = true,
             color = 0x88000000,
-			border_visible  = true,
-			border_color    = 0xFFFFFFFF,
-			border_flags    = 0x10,
-			border_sizes    = '0,0,0,0',
 			scale_x         = 1.0,
 			scale_y         = 1.0,
 			width           = 0.0,
 			height          = 0.0,
-			texture_offset_x= 0.0,
-			texture_offset_y= 0.0,
         },
     },
     barWidth = 400,
@@ -58,7 +52,7 @@ local default_settings = T{
 
 overlay = {
 
-font;
+font,
 
 targetName = '',
 targetEntity = nil,
@@ -78,7 +72,7 @@ colorTime = 0,
 settings,
 filterSettings,
 settingsModeEnabled = true,
-debugModeEnabled = true,
+debugModeEnabled = false,
 blinkDir = 1,
 lastClock = 0,
 isSettingsOpen = T{false},
@@ -314,9 +308,7 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.settings.size[1]));
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, (tostring(overlay.settings.font.font_height)..' '..tostring(overlay.font.font_height)));
 			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.background.position_x));
-			overlay.font.bold = true;
-			overlay.font.font_family = 'Franklin Gothic';
-			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
+			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
 			
 			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.test));
 			
