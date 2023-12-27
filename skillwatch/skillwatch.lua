@@ -115,6 +115,13 @@ settings.register('filter_settings', 'filter_settings_update', function(s)
 end)
 
 ashita.events.register('d3d_present', 'present_cb', function()
+	local playerTarget = AshitaCore:GetMemoryManager():GetTarget();
+	local targetIndex;
+	if (playerTarget ~= nil) then
+		local targetIndex = playerTarget:GetTargetIndex(0);
+		overlay.targetEntity = GetEntity(targetIndex);
+	end
+
 	if (overlay.targetEntity ~= nil) then
 		overlay.targetName = overlay.targetEntity.Name;
 	end
@@ -131,12 +138,7 @@ ashita.events.register('d3d_present', 'present_cb', function()
 	overlay.font:SetText('');
 	UpdateTimer();
 
-	local playerTarget = AshitaCore:GetMemoryManager():GetTarget();
-	local targetIndex;
-	if (playerTarget ~= nil) then
-		local targetIndex = playerTarget:GetTargetIndex(0);
-		overlay.targetEntity = GetEntity(targetIndex);
-	end
+
     
 	if (overlay.font.font_height ~= overlay.settings.font.font_height) then
 		overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
@@ -299,9 +301,11 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			if (overlay.targetEntity ~= nil) then
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.targetName);
 			end
+			if (overlay.targetEntity ~= nil) then
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.debugText);
+			end
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.readiesText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.usesText);
-			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.debugText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilityText);
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.isAbilityUsed));
 			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.timer));
@@ -431,10 +435,25 @@ end
 ashita.events.register('text_in', 'text_in_cb', function (e)
 	if(overlay.targetEntity ~= nil) then
 		local isReading, endIdxR = string.find(e.message,'readies');
-		--local isReadingSimplelog, endIdxR = string.find(e.message,overlay.targetName);
-		--if( isReadingSimplelog) then overlay.debugText = e.message; end
+		if(not isReading) then
+			isReading, endIdxR = string.find(e.message,'ready');
+		end
 		local isUsing, _ = string.find(e.message,'uses');
-		local isTarget, _ = string.find(e.message,overlay.targetName);
+		if (not isUsing) then
+			isUsing, _ = string.find(e.message,'use');
+		end
+		local altName = overlay.targetName;
+		local altIdx, _ =  string.find(altName,'-');
+		if (altIdx) then
+			altName = string.sub(altName,0,altIdx-1);
+		end
+		overlay.debugText = 'altName: '..altName;
+		local isTarget;
+		if (not altIdx) then
+			isTarget, _ = string.find(e.message,overlay.targetName);
+		else
+			isTarget, _ = string.find(e.message,altName);
+		end
 		if (isTarget and bit.band(overlay.targetEntity.SpawnFlags, 0x10) ~= 0) then
 			if (isReading and isReading > isTarget ) then
 				overlay.readiesText = e.message;
