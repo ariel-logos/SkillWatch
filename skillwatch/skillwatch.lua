@@ -325,6 +325,7 @@ ashita.events.register('d3d_present', 'present_cb', function()
 		end
 		
         imgui.EndTabBar();
+		imgui.End();
     end
 	
 	
@@ -400,14 +401,10 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			end
 		end
 		
-		
-		
-		imgui.End();
 		--local barColor = imgui.GetColorU32({1,1,1,1});
 		--imgui.GetWindowDrawList():AddRectFilled(imgui.GetCursorScreenPos(), imgui.ImVec2(200,200), barColor, false, ImDrawCornerFlags_None);
-	else
-		imgui.End();
 	end
+	imgui.End();
 	
 end);
 
@@ -567,3 +564,4 @@ function getAbilities()
 
 
 end
+
