@@ -108,7 +108,6 @@ Bionic Boost
 Biotic Boomerang
 Black Cloud
 Blank Gaze
-Blank Gaze
 Blastbomb
 Blaster
 Blazing Angon
@@ -472,8 +471,6 @@ Harden Shell
 Havoc Spiral
 Haymaker
 Head Butt
-Head Butt
-Head Butt
 Head Snatch
 Healing Breeze
 Healing Stomp
@@ -731,7 +728,6 @@ Pleiades Ray
 Plenilune Embrace
 Pod Ejection
 Poison Breath
-Poison Breath
 Poison Pick
 Poison Sting
 Polar Blast
@@ -740,7 +736,6 @@ Pole Swing
 Pollen
 Potent Lunge
 Pounce
-Power Attack
 Power Attack
 Predatory Glare
 Primal Drill
@@ -765,7 +760,6 @@ Rabid Dance
 Radiant Breath
 Radiant Sacrament
 Rage
-Rage
 Rail Cannon
 Raksha Stance
 Raksha: Illusion
@@ -787,7 +781,6 @@ Recoil Dive
 Redemption
 Refueling
 Regal Scratch
-Regeneration
 Regeneration
 Regurgitation
 Reinforcements
@@ -856,7 +849,6 @@ Seismic Impact
 Seismic Tail
 Seismohammer
 Seismostomp
-Self-Destruct
 Self-Destruct
 Sensual Dance
 Serpentine Tail

@@ -1,0 +1,285 @@
+Absorb-AGI
+Absorb-CHR
+Absorb-DEX
+Absorb-INT
+Absorb-MND
+Absorb-STR
+Absorb-TP
+Absorb-VIT
+Advancing March
+Aero
+Aero II
+Aero III
+Aero IV
+Aeroga
+Aeroga II
+Aeroga III
+Aquaveil
+Archer's Prelude
+Army's Paeon
+Army's Paeon II
+Army's Paeon III
+Army's Paeon IV
+Army's Paeon V
+Aspir
+Banish
+Banish II
+Banish III
+Banishga
+Banishga II
+Baraera
+Baraero
+Barblind
+Barblindra
+Barblizzara
+Barblizzard
+Barfira
+Barfire
+Barparalyze
+Barparalyzra
+Barpetra
+Barpetrify
+Barpoison
+Barpoisonra
+Barsilence
+Barsilencera
+Barsleep
+Barsleepra
+Barstone
+Barstonra
+Barthunder
+Barthundra
+Barvira
+Barvirus
+Barwater
+Barwatera
+Battlefield Elegy
+Bewitching Etude
+Bind
+Bio
+Bio II
+Blade Madrigal
+Blaze Spikes
+Blind
+Blindna
+Blink
+Blizzaga
+Blizzaga II
+Blizzaga III
+Blizzard
+Blizzard II
+Blizzard III
+Blizzard IV
+Burn
+Burst
+Carnage Elegy
+Chocobo Mazurka
+Choke
+Curaga
+Curaga II
+Curaga III
+Curaga IV
+Cure
+Cure II
+Cure III
+Cure IV
+Cure V
+Cursna
+Dark Carol
+Dark Threnody
+Deodorize
+Dextrous Etude
+Dia
+Dia II
+Diaga
+Dispel
+Dokumori: Ichi
+Doton: Ichi
+Doton: Ni
+Dragonfoe Mambo
+Drain
+Drown
+Earth Carol
+Earth Threnody
+Enaero
+Enblizzard
+Enchanting Etude
+Enfire
+Enstone
+Enthunder
+Enwater
+Erase
+Escape
+Firaga
+Firaga II
+Firaga III
+Fire
+Fire Carol
+Fire II
+Fire III
+Fire IV
+Fire Threnody
+Flare
+Flash
+Flood
+Foe Lullaby
+Foe Requiem
+Foe Requiem II
+Foe Requiem III
+Foe Requiem IV
+Foe Requiem V
+Foe Requiem VI
+Fowl Aubade
+Freeze
+Frost
+Goblin Gavotte
+Goddess's Hymnus
+Gold Capriccio
+Gravity
+Haste
+Herb Pastoral
+Herculean Etude
+Hojo: Ichi
+Hojo: Ni
+Holy
+Horde Lullaby
+Hunter's Prelude
+Huton: Ichi
+Huton: Ni
+Hyoton: Ichi
+Hyoton: Ni
+Ice Carol
+Ice Spikes
+Ice Threnody
+Invisible
+Jubaku: Ichi
+Katon: Ichi
+Katon: Ni
+Knight's Minne
+Knight's Minne II
+Knight's Minne III
+Knight's Minne IV
+Kurayami: Ichi
+Kurayami: Ni
+Learned Etude
+Light Carol
+Light Threnody
+Lightning Carol
+Lightning Threnody
+Logical Etude
+Mage's Ballad
+Mage's Ballad II
+Magic Finale
+Maiden's Virelai
+Paralyna
+Paralyze
+Phalanx
+Poison
+Poison II
+Poisona
+Poisonga
+Protect
+Protect II
+Protect III
+Protect IV
+Protectra
+Protectra II
+Protectra III
+Protectra IV
+Puppet's Operetta
+Quake
+Quick Etude
+Raise
+Raise II
+Raise III
+Raiton: Ichi
+Raiton: Ni
+Raptor Mazurka
+Rasp
+Refresh
+Regen
+Regen II
+Regen III
+Reraise
+Reraise II
+Reraise III
+Sage Etude
+Scop's Operetta
+Sheepfoe Mambo
+Shell
+Shell II
+Shell III
+Shell IV
+Shellra
+Shellra II
+Shellra III
+Shellra IV
+Shining Fantasia
+Shock
+Shock Spikes
+Silena
+Silence
+Sinewy Etude
+Sleep
+Sleep II
+Sleepga
+Sleepga II
+Slow
+Sneak
+Spirited Etude
+Stona
+Stone
+Stone II
+Stone III
+Stone IV
+Stonega
+Stonega II
+Stonega III
+Stoneskin
+Stun
+Suiton: Ichi
+Suiton: Ni
+Swift Etude
+Sword Madrigal
+Teleport-Altep
+Teleport-Dem
+Teleport-Holla
+Teleport-Mea
+Teleport-Vahzl
+Teleport-Yhoat
+Thundaga
+Thundaga II
+Thundaga III
+Thunder
+Thunder II
+Thunder III
+Thunder IV
+Tonko: Ichi
+Tonko: Ni
+Tornado
+Tractor
+Uncanny Etude
+Utsusemi: Ichi
+Utsusemi: Ni
+Valor Minuet
+Valor Minuet II
+Valor Minuet III
+Valor Minuet IV
+Victory March
+Viruna
+Vital Etude
+Vivacious Etude
+Warding Round
+Warp
+Warp II
+Water
+Water Carol
+Water II
+Water III
+Water IV
+Water Threnody
+Waterga
+Waterga II
+Waterga III
+Wind Carol
+Wind Threnody

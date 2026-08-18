@@ -12,7 +12,7 @@ This add-on is <b>NOT</b> a bot. It simply provides enhanced feedback on enemy m
 In short, it's a combination of parsing the chat box looking for a message, matching it with Entity informations provided by Ashita hook and drawing some visual feedback overlay.
 <br></br>
 ### Main features
-By default, the add-on displays on an overlay (text +  background box + time bar) ALL the incoming skills from enemy mobs with the exception of those without charging time (e.g. Jump).\
+By default, the add-on displays on an overlay (text +  background box + time bar) ALL the incoming skills and spells from enemy mobs with the exception of those without charging time (e.g. Jump).\
 The overlay can be configured in different ways (see details below), for example, by filtering certain skills to add a blinking alert effect to the overlay when they are incoming.\
 It is also possible to just display the filtered skills (very useful to target specific skill to which you'd like to react with a stun!).\
 The overlay has different visual options such as size adjustment, repositioning, blinking color, etc.
@@ -42,7 +42,7 @@ The two tables should look like this:
 
 ```/skillwatch``` Shows/hides the config UI.
 <br></br>
-#### Filters tab
+#### Abilities tab
 This tab allows you to select which skill you want to have the "blinking" alert effect to better highlight those relevant for you.\
 You can obviously select multiple skills on which to apply the blinking effect.\
 Everything set here is saved in the preferences.
@@ -58,17 +58,23 @@ Everything set here is saved in the preferences.
 ![1](https://github.com/ariel-logos/SkillWatch/assets/78350872/3d8a14e9-b8dd-4227-99ba-6369b511ba29)|![2](https://github.com/ariel-logos/SkillWatch/assets/78350872/19ce8c78-9851-4424-8e82-8aea4f1c43cd)|![3](https://github.com/ariel-logos/SkillWatch/assets/78350872/31aee711-072d-400a-a867-e8180ccfdd5a)
 :-------------------------|-------------------------|-------------------------
 Fig. 1          |  Fig. 2           | Fig. 3 
+#### Spells tab
+Same layout and controls as the Abilities tab, but applied to the spells enemy mobs cast rather than the skills they ready.\
+It has its own Search, Spells list, Enable toggle, Show Enabled only, Disable All and Custom Filter, all saved separately from the Abilities tab.\
+Note that spell names are matched in full and are <b>not</b> case sensitive, while the Abilities tab matches partial names and <b>is</b> case sensitive.
 #### Settings tab
 In this tab you can adjust several add-on settings, in particular:
 <ol>
   <li><b>Size:</b> sets the size of the overlay.</li>
   <li><b>BG Transparency:</b> sets the transparency of the background box.</li>
   <li><b>Blinking RGB:</b> using the 3 sliders R,G,B below, sets the color of the blinking effect.</li>
-  <li><b>Blinking Speed:</b> sets the rate at which the text background to notify incoming skills set in the Filters tab.</li>
-  <li><b>Only trigger on filtered skills:</b> the overlay will only appear when one of the selected skills in the Filters tab is being used by the enemy mob.</li>
+  <li><b>Blinking Speed:</b> sets the rate at which the text background to notify incoming skills set in the Abilities and Spells tabs.</li>
+  <li><b>Only trigger on filtered skills:</b> the overlay will only appear when one of the selected skills in the Abilities or Spells tab is being used by the enemy mob.</li>
   <li><b>Right justified:</b> the text and background box will resize expanding towards the left (default: right).</li>
-  <li><b>Ignore non-custom filter:</b> the overlay will only appear when the text in the Custom Filter textbox set Filters tab is recognized. Ignores other selected filter from the Skills list.</li>
+  <li><b>Ignore non-custom filter:</b> the overlay will only appear when the text in the Custom Filter textbox set in the Abilities or Spells tab is recognized. Ignores other selected filter from the Skills list.</li>
   <li><b>Hide timer bar:</b> hides the bar appearing at the bottom of the text showing the time since the skill detection.</li>
+  <li><b>Enable sound alert:</b> plays a sound when an incoming skill or spell matches one of your filters.</li>
+  <li><b>Sound selection:</b> the dropdown below the checkbox picks which alert sound is used. Selecting an entry plays it once as a preview.</li>
 </ol>
 
 

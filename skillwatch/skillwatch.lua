@@ -1,7 +1,7 @@
 addon.name      = 'skillwatch';
 addon.author    = 'Arielfy';
-addon.version   = '0.2.1';
-addon.desc      = 'Addon to display abilities being readied by mobs';
+addon.version   = '0.3';
+addon.desc      = 'Adds a box displaying incoming abilities/spells from mobs';
 addon.link      = '';
 
 
@@ -12,7 +12,7 @@ local settings  = require('settings');
 local ffi = require('ffi');
 local prims = require('primitives');
 
-local default_filterSettings = T{abilityFilters,};
+local default_filterSettings = T{abilityFilters,spellsFilter};
 local default_settings = T{
     font = T{
         visible = true,
@@ -23,15 +23,21 @@ local default_settings = T{
         color = 0xFFFFFFFF,
         position_x = 100,
         position_y = 100,
-		padding    = 3,
+		padding    = 0,
 		color_outline = 0xFF000000,
         background = T{
             visible = true,
             color = 0x88000000,
+			border_visible  = true,
+			border_color    = 0xFFFFFFFF,
+			border_flags    = 0x10,
+			border_sizes    = '0,0,0,0',
 			scale_x         = 1.0,
 			scale_y         = 1.0,
 			width           = 0.0,
 			height          = 0.0,
+			texture_offset_x= 0.0,
+			texture_offset_y= 0.0,
         },
     },
     barWidth = 400,
@@ -42,17 +48,25 @@ local default_settings = T{
 	transparency = T{0.5},
 	size = T{1},
 	showOnlyEnabled = T{false},
+	showOnlyEnabled2 = T{false},
 	showOnlyBlink = T{false},
 	justifyRight = T{false},
-	customFilter = T{},
+	customFilter = T{''},
+	customFilter2 = T{''},
 	customFilterEnabled = T{false},
+	customFilterEnabled2 = T{false},
 	skipNotCustom = T{false},
-	hideSkillBar = T{false}
+	hideSkillBar = T{false},
+	selectedNotification = T{'alert_1'},
+	soundalert = T{false}
 };
 
 overlay = {
 
-font,
+font;
+notifications = T{'alert_1', 'alert_2', 'alert_3', 'alert_4'};
+alertCD = 0;
+textIn = false;
 
 targetName = '',
 targetEntity = nil,
@@ -78,7 +92,10 @@ lastClock = 0,
 isSettingsOpen = T{false},
 abilitySelected = T{-1},
 enabledAbilities = T{},
+spellSelected = T{-1},
+enabledSpells = T{},
 search = T{},
+search2 = T{},
 skillBar,
 test
 
@@ -111,19 +128,14 @@ end)
 
 settings.register('filter_settings', 'filter_settings_update', function(s)
     if s ~= nil then overlay.filterSettings = s end
-    settings.save('general_settings');
+    settings.save('filter_settings');
 end)
 
 ashita.events.register('d3d_present', 'present_cb', function()
-	local playerTarget = AshitaCore:GetMemoryManager():GetTarget();
-	local targetIndex;
-	if (playerTarget ~= nil) then
-		local targetIndex = playerTarget:GetTargetIndex(0);
-		overlay.targetEntity = GetEntity(targetIndex);
-	end
-
-	if (overlay.targetEntity ~= nil) then
-		overlay.targetName = overlay.targetEntity.Name;
+	if not overlay.textIn then
+		if (overlay.targetEntity ~= nil) then
+			overlay.targetName = overlay.targetEntity.Name;
+		end
 	end
 	
 	if (overlay.font.position_x ~= overlay.settings.font.position_x or
@@ -138,21 +150,31 @@ ashita.events.register('d3d_present', 'present_cb', function()
 	overlay.font:SetText('');
 	UpdateTimer();
 
-
-    
-	if (overlay.font.font_height ~= overlay.settings.font.font_height) then
-		overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
-		overlay.font.padding = overlay.font.font_height/4;
+	local playerTarget = AshitaCore:GetMemoryManager():GetTarget();
+	local targetIndex;
+	if (playerTarget ~= nil) then
+		local targetIndex = playerTarget:GetTargetIndex(0);
+		overlay.targetEntity = GetEntity(targetIndex);
 	end
 	
-	--CONFIG WINDOW  
+	-- local target = AshitaCore:GetMemoryManager():GetTarget();
+    -- if (target:GetIsSubTargetActive() == 0) then
+        -- overlay.targetEntity = GetEntity(target:GetTargetIndex(0));
+    -- end
+    -- overlay.targetEntity = GetEntity(target:GetTargetIndex(1));
+	
+	overlay.settings.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
+	overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
+	overlay.font.padding = overlay.font.font_height/2;
+    
+	--SETTINGS WINDOW  
 	if (overlay.isSettingsOpen[1]) then
 		imgui.SetNextWindowSize({ 350, 480, });
 		imgui.SetNextWindowSizeConstraints({ 350, 480, }, { FLT_MAX, FLT_MAX, });
 		imgui.Begin('SkillWatch', overlay.isSettingsOpen, ImGuiWindowFlags_NoResize);
 		if (imgui.BeginTabBar('##skillwatch_tabbar', ImGuiTabBarFlags_NoCloseWithMiddleMouseButton)) then
 			--FILTERS TAB
-			if (imgui.BeginTabItem('Filters', nil)) then
+			if (imgui.BeginTabItem('Abilities', nil)) then
 				imgui.InputText('Search', overlay.search, 255)
 				imgui.BeginGroup();
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'Skills');
@@ -167,7 +189,7 @@ ashita.events.register('d3d_present', 'present_cb', function()
 						--enabledList:append(v[1]);
 					end
 					local searchEnabled = false;
-					local searchFound, _ = string.find(string.lower(v[1]), string.lower(overlay.search[1]));
+					local searchFound, _ = string.find(string.lower(v[1]), string.lower(overlay.search[1]), 1, true);
 					if (overlay.search ~= nil and overlay.search[1]~='') then searchEnabled = true; end
 					if (not overlay.settings.showOnlyEnabled[1] or v[2]) then
 						if(not searchEnabled or searchFound) then
@@ -224,6 +246,79 @@ ashita.events.register('d3d_present', 'present_cb', function()
 				
 				imgui.EndTabItem();
 			end
+			--SPELLS TAB
+			if (imgui.BeginTabItem('Spells', nil)) then
+				imgui.InputText('search2', overlay.search2, 255)
+				imgui.BeginGroup();
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'Spells');
+				
+				imgui.BeginChild('leftpane', { 250,250, }, true);
+				local aIdx = 1;
+				local enabledList = T{};
+				overlay.spells:each(function(v,k)
+					--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, v[1])
+					if (v[2]) then
+						table.insert(enabledList, v);
+						--enabledList:append(v[1]);
+					end
+					local search2Enabled = false;
+					local search2Found, _ = string.find(string.lower(v[1]), string.lower(overlay.search2[1]), 1, true);
+					if (overlay.search2 ~= nil and overlay.search2[1]~='') then search2Enabled = true; end
+					if (not overlay.settings.showOnlyEnabled2[1] or v[2]) then
+						if(not search2Enabled or search2Found) then
+							if(imgui.Selectable(v[1], overlay.spellSelected[1] == aIdx)) then
+								overlay.spellSelected[1] = aIdx;
+							end
+						end
+					end
+					aIdx = aIdx+1;
+				end);
+				overlay.enabledSpells = enabledList;
+				imgui.EndChild();
+				imgui.EndGroup();
+				
+				imgui.SameLine();
+				
+				imgui.BeginGroup();
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'Enable');
+				imgui.BeginChild('righttpane', { 75,250, }, true);
+				if(overlay.spellSelected[1]> -1) then
+					if (imgui.Checkbox('',{overlay.spells[overlay.spellSelected[1]][2]})) then 
+					overlay.spells[overlay.spellSelected[1]][2] = not overlay.spells[overlay.spellSelected[1]][2];
+					overlay.filterSettings.spellFilters = overlay.spells;
+					save_filter_settings();
+					end
+				end
+				imgui.EndChild();
+				imgui.EndGroup();
+				--imgui.BeginGroup();
+				if (imgui.Checkbox('Show Enabled only',{overlay.settings.showOnlyEnabled2[1]})) then 
+					overlay.settings.showOnlyEnabled2[1] = not overlay.settings.showOnlyEnabled2[1];
+					save_settings();
+				end
+				--imgui.SameLine();
+				imgui.PushStyleVar(ImGuiStyleVar_ItemSpacing, {0, 10});
+				if (imgui.Button('Disable All')) then
+					overlay.spells:each(function(v,k)
+						v[2] = false;
+					end);
+					overlay.enabledSpells = T{};
+				end
+				
+				imgui.PopStyleVar(1);
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'Custom Filter');
+				
+				if(imgui.InputText('\13', overlay.settings.customFilter2, 128))then
+					save_settings();
+				end
+				imgui.SameLine();
+				if (imgui.Checkbox('Enabled',{overlay.settings.customFilterEnabled2[1]})) then 
+					overlay.settings.customFilterEnabled2[1] = not overlay.settings.customFilterEnabled2[1];
+					save_settings();
+				end
+				
+				imgui.EndTabItem();
+			end
 			--SETTINGS TAB
 			if (imgui.BeginTabItem('Settings', nil)) then
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'Size');
@@ -231,10 +326,10 @@ ashita.events.register('d3d_present', 'present_cb', function()
 				local S = {tonumber(overlay.settings.size[1])};
 				if (imgui.SliderFloat(' ', S, 0.1, 3, '%0.1f')) then
 					overlay.settings.size = S;
+					save_settings();
 					overlay.settings.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
 					overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
-					overlay.font.padding = overlay.font.font_height/4;
-					save_settings();
+					overlay.font.padding = overlay.font.font_height/2;
 				end
 				imgui.PopStyleVar(1);
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, 'BG Transparency');
@@ -292,45 +387,52 @@ ashita.events.register('d3d_present', 'present_cb', function()
 					overlay.settings.hideSkillBar[1] = not overlay.settings.hideSkillBar[1];
 					save_settings();
 				end
-				
+				if (imgui.Checkbox('Enable sound alert',{overlay.settings.soundalert[1]})) then 
+					overlay.settings.soundalert[1] = not overlay.settings.soundalert[1];
+					save_settings();
+				end
+				if imgui.BeginCombo('##NotificationSounds', overlay.settings.selectedNotification[1] , ImGuiComboFlags_None) then
+					for NS_i = 1, #overlay.notifications do
+						if imgui.Selectable(overlay.notifications[NS_i]) then
+							overlay.settings.selectedNotification[1] = overlay.notifications[NS_i];
+							PlayAlert(true);
+							save_settings();
+						end
+					end
+				imgui.EndCombo();
+				end
 				imgui.EndTabItem();
 			end
-		end
-		--DEBUG TAB
-		if (overlay.debugModeEnabled and imgui.BeginTabItem('Debug', nil)) then
-			if (overlay.targetEntity ~= nil) then
-				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.targetName);
-			end
-			if (overlay.targetEntity ~= nil) then
+			--DEBUG TAB
+			if (overlay.debugModeEnabled and imgui.BeginTabItem('Debug', nil)) then
+				if (overlay.targetEntity ~= nil) then
+					imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.targetName);
+				end
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.readiesText);
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.usesText);
 				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.debugText);
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilityText);
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.isAbilityUsed));
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.timer));
+				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.settings.customFilter[1]);
+				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.background.position_x));
+				overlay.font.bold = true;
+				overlay.font.font_family = 'Franklin Gothic';
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
+
+				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.test));
+
+				if(overlay.targetEntity ~= nil) then imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.band(overlay.targetEntity.SpawnFlags, 0x10))); end
+				overlay.enabledAbilities:each(function(v,k)
+					--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilities[tonumber(v[1])][1]);
+					imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 },v[1]);
+				end);
+				imgui.EndTabItem();
 			end
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.readiesText);
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.usesText);
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilityText);
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.isAbilityUsed));
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.timer));
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.settings.size[1]));
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, (tostring(overlay.settings.font.font_height)..' '..tostring(overlay.font.font_height)));
-			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.background.position_x));
-			imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.font.font_family));
-			
-			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(overlay.test));
-			
-			--if(overlay.targetEntity ~= nil) then imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.band(overlay.targetEntity.SpawnFlags, 0x10))); end
-			overlay.enabledAbilities:each(function(v,k)
-				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilities[tonumber(v[1])][1]);
-				imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 },v[1]);
-			end);
-			imgui.EndTabItem();
+			imgui.EndTabBar();
 		end
-		
-        imgui.EndTabBar();
 		imgui.End();
-    end
-	
-	
-	
-    
+	end
 	
 	--OVERLAY RENDERING
 	imgui.SetNextWindowSize({ overlay.settings.barWidth, -1, }, ImGuiCond_Always);
@@ -345,18 +447,42 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			overlay.enabledAbilities:each(function(v,k)
 				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilities[tonumber(v[1])][1]);
 					if(overlay.abilityText~='') then
-						local vFind,_ = string.find(v[1], overlay.abilityText);
+						local vFind,_ = string.find(v[1], overlay.abilityText, 1, true);
 						if(vFind) then
 							blinking = true;
+							if overlay.settings.soundalert[1] then PlayAlert(); end
+						end
+					end
+			end);
+		end
+		if (overlay.enabledSpells ~= nil and not overlay.settings.skipNotCustom[1]) then 
+			overlay.enabledSpells:each(function(v,k)
+				--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, overlay.abilities[tonumber(v[1])][1]);
+					if(overlay.abilityText~='') then
+						--print(v[1]:trimex())
+						local vFind = string.lower(v[1]:trimex()) == string.lower(overlay.abilityText:trimex());
+						if(vFind) then
+							blinking = true;
+							if overlay.settings.soundalert[1] then PlayAlert(); end
 						end
 					end
 			end);
 		end
 		if (overlay.settings.customFilterEnabled[1] and overlay.settings.customFilter[1] ~= '') then
 			if(overlay.abilityText~='') then
-				local cFind,_ = string.find(overlay.settings.customFilter[1], overlay.abilityText);
+				local cFind,_ = string.find(overlay.abilityText, overlay.settings.customFilter[1], 1, true);
 				if(cFind) then
 					blinking = true;
+					if overlay.settings.soundalert[1] then PlayAlert(); end
+				end
+			end
+		end
+		if (overlay.settings.customFilterEnabled2[1] and overlay.settings.customFilter2[1] ~= '') then
+			if(overlay.abilityText~='') then -- string.lower(overlay.settings.customFilter2[1]:t) == string.lower(overlay.abilityText:trimex())
+				local cFind =  string.lower(overlay.settings.customFilter2[1]:trimex()) == string.lower(overlay.abilityText:trimex())
+				if(cFind) then
+					blinking = true;
+					if overlay.settings.soundalert[1] then PlayAlert(); end
 				end
 			end
 		end
@@ -370,15 +496,15 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			end
 			overlay.lastClock = os.clock()*overlay.settings.blinkingSpeed[1]%1;
 			if (overlay.blinkDir == 1) then
-				time2color = bit.lshift(bit.tobit(time2colorR),16) + bit.lshift(bit.tobit(time2colorG),8) + bit.tobit(time2colorB)+	bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);;
+				time2color = bit.lshift(bit.tobit(time2colorR),16) + bit.lshift(bit.tobit(time2colorG),8) + bit.tobit(time2colorB)+	0x88000000;
 			else
 				time2color = bit.lshift(bit.tobit(math.floor(tonumber(overlay.settings.blinkR[1]))-time2colorR),16) +
 								bit.lshift(bit.tobit(math.floor(tonumber(overlay.settings.blinkG[1]))-time2colorG),8) +
 								bit.tobit(math.floor(math.floor(tonumber(overlay.settings.blinkB[1]))-time2colorB))+
-								bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);
+								bit.lshift(bit.tobit(overlay.settings.transparency[1]*255),24);
 			end
 		else
-			time2color = bit.lshift(bit.tobit((1-overlay.settings.transparency[1])*255),24);
+			time2color = bit.lshift(bit.tobit(overlay.settings.transparency[1]*255),24);
 		end
 		
 		--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, tostring(bit.tohex(time2color)));
@@ -401,11 +527,13 @@ ashita.events.register('d3d_present', 'present_cb', function()
 			end
 		end
 		
+		
+		
 		--local barColor = imgui.GetColorU32({1,1,1,1});
 		--imgui.GetWindowDrawList():AddRectFilled(imgui.GetCursorScreenPos(), imgui.ImVec2(200,200), barColor, false, ImDrawCornerFlags_None);
 	end
 	imgui.End();
-	
+
 end);
 
 function UpdateSkillBar(isVisible)
@@ -432,44 +560,43 @@ function UpdateSkillBar(isVisible)
 end
 
 ashita.events.register('text_in', 'text_in_cb', function (e)
-	if(overlay.targetEntity ~= nil) then
-		local isReading, endIdxR = string.find(e.message,'readies');
-		if(not isReading) then
-			isReading, endIdxR = string.find(e.message,'ready');
-		end
-		local isUsing, _ = string.find(e.message,'uses');
-		if (not isUsing) then
-			isUsing, _ = string.find(e.message,'use');
-		end
-		local altName = overlay.targetName;
-		local altIdx, _ =  string.find(altName,'-');
-		if (altIdx) then
-			altName = string.sub(altName,0,altIdx-1);
-		end
-		overlay.debugText = 'altName: '..altName;
-		local isTarget;
-		if (not altIdx) then
-			isTarget, _ = string.find(e.message,overlay.targetName);
-		else
-			isTarget, _ = string.find(e.message,altName);
-		end
+	overlay.textIn = true;
+	if(overlay.targetEntity ~= nil and overlay.targetName~= nil) then
+		local isReading, endIdxR = string.find(e.message,'readies', 1, true);
+		local isCasting, endIdxC = string.find(e.message,'casting', 1, true);
+		local isInterrupt = string.find(e.message,'interrupted', 1, true)
+		--local isReadingSimplelog, endIdxR = string.find(e.message,overlay.targetName);
+		--if( isReadingSimplelog) then overlay.debugText = e.message; end
+		local isUsing, _ = string.find(e.message,'uses ', 1, true) or string.find(e.message,'use ', 1, true)
+		local isCast, _ = string.find(e.message,'cast ', 1, true) or string.find(e.message,'casts ', 1, true)
+		local isTarget, _ = string.find(e.message,overlay.targetName, 1, true);
 		if (isTarget and bit.band(overlay.targetEntity.SpawnFlags, 0x10) ~= 0) then
 			if (isReading and isReading > isTarget ) then
 				overlay.readiesText = e.message;
 				overlay.abilityText = string.sub(e.message,endIdxR+2,string.len(e.message)-3);
 				ResetTimer();
 				StartTimer();
-			else
-				if (isUsing and isUsing > isTarget ) then
-					overlay.usesText = e.message;
-					local checkAbility, _ = string.find(e.message,overlay.abilityText);
-					if (checkAbility) then
-						ResetTimer();
-					end
+			elseif (isUsing and isUsing > isTarget ) then
+				overlay.usesText = e.message;
+				local checkAbility, _ = string.find(e.message,overlay.abilityText, 1, true);
+				if (checkAbility) then
+					ResetTimer();
+				end
+			elseif (isCasting and isCasting > isTarget and not isInterrupt) then
+				overlay.readiesText = e.message;
+				overlay.abilityText = string.sub(e.message,endIdxC+2,string.len(e.message)-3);
+				ResetTimer();
+				StartTimer();
+			elseif (isCast and isCast > isTarget ) then
+				overlay.usesText = e.message;
+				local checkAbility, _ = string.find(e.message,overlay.abilityText, 1, true);
+				if (checkAbility) then
+					ResetTimer();
 				end
 			end
 		end
 	end
+	overlay.textIn = false;
 end);
 
 function UpdateTimer()
@@ -499,10 +626,9 @@ ashita.events.register('load', 'load_cb', function ()
 	overlay.settings = settings.load(default_settings, 'general_settings');
 	overlay.filterSettings = settings.load(default_filterSettings, 'filter_settings');
     overlay.font = fonts.new(overlay.settings.font);
-	overlay.settings.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
-	overlay.font.font_height = math.floor(11*(overlay.settings.size[1]))+1;
 	overlay.font.padding = overlay.font.font_height/4;
 	getAbilities();
+	getSpells();
 	overlay.skillBar = prims.new(skillBarInit);
 end);
 
@@ -526,10 +652,14 @@ ashita.events.register('command', 'command_cb', function (e)
 
     e.blocked = true;
 
-    if (#args >= 1) then
+    if (#args == 1) then
         overlay.isSettingsOpen[1] = not overlay.isSettingsOpen[1];
         return;
     end
+	
+	if #args == 2 and args[2] == 'debug' then
+		--print(overlay.enabledSpells[1][1])
+	end
 end);
 
 function getAbilities()
@@ -541,7 +671,7 @@ function getAbilities()
 			error('Failed to load abilities list.');
 		end
 		for line in f:lines() do
-			table.insert (overlay.abilities, T{line,false});
+			table.insert (overlay.abilities, T{line:trimex(),false});
 		end
 		f:close();
 		overlay.filterSettings.abilityFilters = overlay.abilities;
@@ -562,6 +692,42 @@ function getAbilities()
 	end
 
 
+end
+function getSpells()
+	overlay.spells = T{};
+	
+	if(overlay.filterSettings.spellFilters == nil) then
+		local f = io.open(addon.path .. '/data/spells.txt', 'rb');
+		if (f == nil) then
+			error('Failed to load spells list.');
+		end
+		for line in f:lines() do
+			table.insert (overlay.spells, T{line:trimex(),false});
+		end
+		f:close();
+		overlay.filterSettings.spellFilters = overlay.spells;
+		save_filter_settings();
+	else
+		overlay.spells = overlay.filterSettings.spellFilters;
+		local aIdx = 1;
+		local enabledList = T{};
+		overlay.spells:each(function(v,k)
+			--imgui.TextColored({ 1.0, 1.0, 1.0, 1.0 }, v[1]);
+
+			if (v[2]) then
+				table.insert(enabledList, v);
+			end
+			aIdx = aIdx+1;
+		end);
+		overlay.enabledSpells = enabledList;
+	end
+
 
 end
 
+function PlayAlert(forced)
+	if os.clock() - overlay.alertCD > (forced and 1 or overlay.maxTime+1) and (not overlay.isAbilityUsed or forced)then
+		overlay.alertCD = os.clock()
+		ashita.misc.play_sound(string.format('%s\\sounds\\%s.wav', addon.path, overlay.settings.selectedNotification[1]));
+	end
+end
