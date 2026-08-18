@@ -563,6 +563,9 @@ ashita.events.register('text_in', 'text_in_cb', function (e)
 	overlay.textIn = true;
 	if(overlay.targetEntity ~= nil and overlay.targetName~= nil) then
 		local isReading, endIdxR = string.find(e.message,'readies', 1, true);
+		if (not isReading) then
+			isReading, endIdxR = string.find(e.message,'ready', 1, true);
+		end
 		local isCasting, endIdxC = string.find(e.message,'casting', 1, true);
 		local isInterrupt = string.find(e.message,'interrupted', 1, true)
 		--local isReadingSimplelog, endIdxR = string.find(e.message,overlay.targetName);
